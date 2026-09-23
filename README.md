@@ -1,4 +1,4 @@
-# 🏥 eDoc — Healthcare Appointment System
+# eDoc — Healthcare Appointment System
 
 <p align="center">
   <strong>A relational database-driven healthcare appointment management platform</strong><br/>
@@ -16,21 +16,13 @@
 
 ---
 
-## 📖 Overview
+##  Overview
 
 **eDoc** is a web-based Healthcare Appointment Management System designed to streamline appointment scheduling and coordination between **administrators, doctors, and patients**.
 
 The application combines a role-based PHP web application with a structured **MySQL relational database**, providing workflows for doctor management, specialty classification, consultation-session scheduling, patient registration, and appointment booking.
 
 The project was developed as part of the **Database Systems (BCSE302)** coursework, with particular emphasis on relational modeling, normalization, referential integrity, and database-backed application workflows.
-
-### Core goals
-
-- Centralize healthcare appointment data in a structured relational database.
-- Reduce manual scheduling conflicts and fragmented records.
-- Provide role-specific workflows for administrators, doctors, and patients.
-- Maintain referential integrity through primary and foreign key relationships.
-- Demonstrate practical database design using a normalized **3NF** schema.
 
 ---
 
@@ -108,29 +100,6 @@ graph TD
 ##  Authentication & Request Routing
 
 Authentication is centralized through the `webuser` table. Each authenticated account is associated with a role that determines which application portal it can access.
-
-```text
-                         ┌─────────────────────┐
-                         │    User Login       │
-                         └──────────┬──────────┘
-                                    │
-                                    ▼
-                         ┌─────────────────────┐
-                         │  webuser Validation │
-                         │ email + usertype    │
-                         └──────────┬──────────┘
-                                    │
-              ┌─────────────────────┼─────────────────────┐
-              │                     │                     │
-              ▼                     ▼                     ▼
-       ┌─────────────┐       ┌─────────────┐       ┌─────────────┐
-       │ usertype = a│       │ usertype = d│       │ usertype = p│
-       └──────┬──────┘       └──────┬──────┘       └──────┬──────┘
-              │                     │                     │
-              ▼                     ▼                     ▼
-       Admin Portal          Doctor Portal         Patient Portal
-        /admin/               /doctor/               /patient/
-```
 
 ### Role mapping
 
@@ -221,24 +190,6 @@ erDiagram
 | `patient` | Registered patient information | `pid` |
 | `schedule` | Doctor consultation sessions and capacity | `scheduleid` |
 | `appointment` | Patient bookings against scheduled sessions | `appoid` |
-
-### Relationship model
-
-```text
-webuser
-  ├── 1 : 0..1 ── admin
-  ├── 1 : 0..1 ── doctor
-  └── 1 : 0..1 ── patient
-
-specialties
-  └── 1 : N ───── doctor
-                    │
-                    └── 1 : N ───── schedule
-                                      │
-                                      └── 1 : N ───── appointment
-                                                        │
-                                                        └── N : 1 ── patient
-```
 
 ---
 
@@ -410,68 +361,6 @@ http://localhost/healthcare-appointment-system/index.html
 
 ---
 
-## 🔄 Core Booking Workflow
-
-The primary patient booking lifecycle can be represented as:
-
-```text
-Patient Login
-     │
-     ▼
-Browse Medical Specialties
-     │
-     ▼
-Select Doctor
-     │
-     ▼
-View Available Sessions
-     │
-     ▼
-Select Appointment Slot
-     │
-     ▼
-Create Appointment
-     │
-     ▼
-Appointment History
-```
-
-On the provider side:
-
-```text
-Doctor Login
-     │
-     ▼
-View Scheduled Sessions
-     │
-     ▼
-Open Session
-     │
-     ▼
-Review Booked Patients
-     │
-     ▼
-Manage Appointment Information
-```
-
-Administrators provide the operational foundation:
-
-```text
-Admin Login
-     │
-     ├── Manage Doctors
-     │
-     ├── Manage Specialties
-     │
-     ├── Create Sessions
-     │
-     ├── Review Patients
-     │
-     └── Monitor Appointments
-```
-
----
-
 ## 📊 Functional Data Flow
 
 ```mermaid
@@ -515,9 +404,4 @@ This project is suitable for demonstrating:
 For production deployment, the application should be modernized beyond the legacy PHP 7.3/MySQL 5.7 stack and reviewed for security, maintainability, privacy, scalability, and compliance requirements.
 
 
-## 📄 License
-
-This project is licensed under the **MIT License**.
-
-See [`LICENSE`](LICENSE) for the full license text.
 
